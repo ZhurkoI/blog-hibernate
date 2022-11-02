@@ -34,6 +34,11 @@ public class Label {
         this.name = name;
     }
 
+    public Label(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
