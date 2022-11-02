@@ -10,11 +10,9 @@
         <property name="hibernate.connection.username">blog_db_admin</property>
         <property name="hibernate.connection.password">secret123</property>
         <property name="show_sql">true</property>
-        <property name="format_sql">true</property>
 
         <mapping class="org.zhurko.blog.model.Label" />
         <mapping class="org.zhurko.blog.model.Post" />
         <mapping class="org.zhurko.blog.model.Writer" />
-
     </session-factory>
 </hibernate-configuration>

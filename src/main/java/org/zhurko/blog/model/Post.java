@@ -37,15 +37,15 @@ public class Post {
     @Column(name = "updated", nullable = false)
     private Date updated;
 
-    @ManyToMany (fetch = FetchType.LAZY)    // TODO: у некоторых есть (cascade = { CascadeType.ALL })   ИЛИ  (cascade = {CascadeType.PERSIST}).  Что это?
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "post_label",
             joinColumns = {@JoinColumn(name = "post_id")},
             inverseJoinColumns = {@JoinColumn(name = "label_id")}
     )
     private Set<Label> labels = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name="writer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer_id")
     private Writer writer;
 
     @Column(name = "post_status", nullable = false)

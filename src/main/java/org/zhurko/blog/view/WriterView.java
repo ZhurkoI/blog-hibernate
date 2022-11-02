@@ -140,10 +140,10 @@ public class WriterView {
         }
 
         System.out.print("Enter ID of the post: ");
-        Long id = UserInputReader.readNumberInput();
-        Post post = allPosts.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
+        Long postId = UserInputReader.readNumberInput();
+        Post post = allPosts.stream().filter(p -> p.getId().equals(postId)).findFirst().orElse(null);
         if (post == null) {
-            System.out.printf("Post with ID=%d doesn't exist.%n", numberInput);
+            System.out.printf("Post with ID=%d doesn't exist.%n", postId);
             return;
         }
 

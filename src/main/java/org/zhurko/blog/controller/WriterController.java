@@ -8,7 +8,6 @@ import org.zhurko.blog.service.PostService;
 import org.zhurko.blog.service.WriterService;
 
 import java.util.List;
-import java.util.Set;
 
 public class WriterController {
 
@@ -54,15 +53,15 @@ public class WriterController {
         Writer writer = writerService.getById(writerId);
         Post post = postService.getById(postId);
         writer.addPost(post);
-        return writerService.update(writer);
+        postService.save(post);
+        return writerService.getById(writerId);
     }
 
     public Writer removePostFromWriter(Long writerId, Long postId) {
         Writer writer = writerService.getById(writerId);
-//        Set<Post> posts = writer.getPosts();
-//        Post post = postService.getById(postId);
-//        posts.remove(post);
-//        writer.setPosts(posts);
+        Post post = postService.getById(postId);
+        writer.removePost(post);
+        postService.save(post);
         return writerService.update(writer);
     }
 }

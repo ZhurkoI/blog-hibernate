@@ -43,16 +43,19 @@ public class HibernatePostRepositoryImpl implements PostRepository {
         Post savedPost = null;
         Session session = null;
         Transaction transaction = null;
+        Date date = new Date();
 
         session = HibernateUtil.getSessionFactory().openSession();
         transaction = session.beginTransaction();
-        Date date = new Date();
-        post.setCreated(date);
-        post.setUpdated(date);
-        post.setPostStatus(PostStatus.UNDER_REVIEW);
-        session.persist(post);
-
-        savedPost = session.get(Post.class, post.getId());
+        if (post.getId() == null) {
+            post.setCreated(date);
+            post.setUpdated(date);
+            post.setPostStatus(PostStatus.UNDER_REVIEW);
+        } else {
+            post.setUpdated(date);
+            post.setPostStatus(PostStatus.ACTIVE);
+        }
+        savedPost = session.merge(post);
         transaction.commit();
         session.close();
 
