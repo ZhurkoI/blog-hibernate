@@ -3,6 +3,7 @@ package org.zhurko.blog.model;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +29,7 @@ public class Writer {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "writer", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Post> posts = new HashSet<>();
 
     public Writer() {
@@ -99,14 +100,13 @@ public class Writer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Writer writer = (Writer) o;
-        return Objects.equals(id, writer.id)
-                && Objects.equals(firstName, writer.firstName)
-                && Objects.equals(lastName, writer.lastName)
-                && Objects.equals(posts, writer.posts);
+        return id.equals(writer.id)
+                && firstName.equals(writer.firstName)
+                && lastName.equals(writer.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, posts);
+        return Objects.hash(id, firstName, lastName);
     }
 }
